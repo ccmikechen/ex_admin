@@ -165,7 +165,7 @@ defmodule ExAdmin.AdminResourceController do
     ids = params[:collection_selection]
     count = Enum.count ids
     ids
-    |> Enum.map(&(to_integer(type, &1)))
+    |> Enum.map(&(parse_value(type, &1)))
     |> Enum.each(fn(id) ->
       repo().delete repo().get(resource_model, id)
     end)
@@ -175,10 +175,10 @@ defmodule ExAdmin.AdminResourceController do
     |> redirect(to: admin_resource_path(resource_model, :index))
   end
 
-  defp to_integer(:id, string), do: string
-  defp to_integer(:string, string), do: string
-  defp to_integer(:binary_id, string), do: string
-  defp to_integer(:integer, string) do
+  defp parse_value(:id, string), do: string
+  defp parse_value(:string, string), do: string
+  defp parse_value(:binary_id, string), do: string
+  defp parse_value(:integer, string) do
     case Integer.parse string do
       {int, ""} -> int
       _ -> string

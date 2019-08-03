@@ -60,7 +60,6 @@ defmodule ExAdmin.ParamsToAtoms do
     if Regex.match?(@integer_keys, key) do
       case {Regex.match?(~r/^[0-9]+$/, value), value} do
         {false, ""} -> {key, nil}
-        {true, _} -> {key, String.to_integer(value)}
         _ -> {key, value}
       end
     else
