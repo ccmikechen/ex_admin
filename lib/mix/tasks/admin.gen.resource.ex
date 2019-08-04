@@ -29,17 +29,22 @@ defmodule Mix.Tasks.Admin.Gen.Resource do
   defp copy_file(%Config{module: module, package_path: package_path} = config) do
     filename = Path.basename(Macro.underscore(module)) <> ".ex"
 
-    web_dir = Path.wildcard("lib/*_web") |> hd # TODO: use app_web_path
+    # TODO: use app_web_path
+    web_dir = Path.wildcard("lib/*_web") |> hd
 
-    dest_path = case Macro.underscore(Blog.Post) |> Path.dirname do #Path.join(~w(web admin))
-      "." ->
-        Path.join([web_dir, "admin"])
-       dir ->
-        if !File.exists? Path.join([web_dir, "admin", dir]) do
-          Path.join([web_dir, "admin", dir])|> File.mkdir
-        end
-        Path.join([web_dir, "admin", dir])
-    end
+    # Path.join(~w(web admin))
+    dest_path =
+      case Macro.underscore(Blog.Post) |> Path.dirname() do
+        "." ->
+          Path.join([web_dir, "admin"])
+
+        dir ->
+          if !File.exists?(Path.join([web_dir, "admin", dir])) do
+            Path.join([web_dir, "admin", dir]) |> File.mkdir()
+          end
+
+          Path.join([web_dir, "admin", dir])
+      end
 
     dest_file_path = Path.join(dest_path, filename)
     source_file = Path.join([package_path | ~w(priv templates admin.gen.resource resource.exs)])

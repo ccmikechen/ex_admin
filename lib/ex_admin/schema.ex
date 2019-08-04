@@ -26,6 +26,7 @@ defmodule ExAdmin.Schema do
   end
 
   def type(%Ecto.Query{from: %Ecto.Query.FromExpr{source: {_, mod}}}, key), do: type(mod, key)
+
   def type(module, key) when is_atom(module) do
     module.__schema__(:type, key)
   end

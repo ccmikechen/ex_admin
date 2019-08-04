@@ -282,7 +282,13 @@ defmodule Mix.Tasks.Admin.Install do
   defp copy_vendor(from_path, path, filename) do
     dest = Path.join([File.cwd!(), "assets", "static", path])
     File.mkdir_p(dest)
-    IO.puts("copying #{Path.join([get_package_path(), from_path, path, filename])} -> #{Path.join([dest, filename])}")
+
+    IO.puts(
+      "copying #{Path.join([get_package_path(), from_path, path, filename])} -> #{
+        Path.join([dest, filename])
+      }"
+    )
+
     File.cp(
       Path.join([get_package_path(), from_path, path, filename]),
       Path.join([dest, filename])
@@ -292,9 +298,10 @@ defmodule Mix.Tasks.Admin.Install do
   defp copy_vendor_r(base_path, path) do
     dest_dir = Path.join([File.cwd!(), "assets", "static", path])
     File.mkdir_p(dest_dir)
+
     Path.join([get_package_path(), base_path, path])
-    |> File.ls!
-    |> Enum.each(fn(file) ->
+    |> File.ls!()
+    |> Enum.each(fn file ->
       dest = Path.join([dest_dir, file])
       IO.puts("Copying #{Path.join([get_package_path(), base_path, path, file])} -> #{dest}")
       File.cp_r(Path.join([get_package_path(), base_path, path, file]), dest)

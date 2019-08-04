@@ -91,6 +91,7 @@ defmodule ExAdmin.Table do
                 td ".td-#{parameterize(f_name)}" do
                   contents
                   |> HtmlSanitizeEx.html5()
+
                   # |> Phoenix.HTML.raw()
                 end
               end)
@@ -310,6 +311,7 @@ defmodule ExAdmin.Table do
         contents
         |> text()
         |> HtmlSanitizeEx.html5()
+
         # |> Phoenix.HTML.raw()
       end
     end
@@ -320,18 +322,22 @@ defmodule ExAdmin.Table do
   end
 
   def handle_contents(contents, field_name) when is_list(contents) do
-    content = contents
-    |> Enum.map(fn(content) ->
-      content
-      |> HtmlSanitizeEx.html5()
-      # |> Phoenix.HTML.raw()
-    end)
-    |> Enum.join(" ")
-    _res = markup do
-      td to_class(".td-", field_name) do
+    content =
+      contents
+      |> Enum.map(fn content ->
         content
+        |> HtmlSanitizeEx.html5()
+
+        # |> Phoenix.HTML.raw()
+      end)
+      |> Enum.join(" ")
+
+    _res =
+      markup do
+        td to_class(".td-", field_name) do
+          content
+        end
       end
-    end
   end
 
   def handle_contents(contents, field_name) do
@@ -339,6 +345,7 @@ defmodule ExAdmin.Table do
       td to_class(".td-", field_name) do
         contents
         |> HtmlSanitizeEx.html5()
+
         # |> Phoenix.HTML.raw()
       end
     end

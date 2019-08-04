@@ -187,8 +187,10 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
         case item do
           bin when is_binary(bin) ->
             {htmls <> bin, chgs}
+
           {:safe, change} ->
             {htmls, [change | chgs]}
+
           {bin, change} ->
             {htmls <> bin, [change | chgs]}
         end
@@ -287,8 +289,9 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
           end
 
           for field <- fields do
-            f_name = field[:name]
-            required = if f_name in required_list, do: true, else: false
+            f_name = field[:opts][:label] || field[:name]
+            type = field[:opts][:type] || :text
+            required = if field[:name] in required_list, do: true, else: false
             name = "#{base_name}[#{f_name}]"
 
             errors =
@@ -340,7 +343,7 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
                   div ".col-sm-10#{error}" do
                     Xain.input(
                       [
-                        type: :text,
+                        type: type,
                         maxlength: "255",
                         id: "#{ext_name}_#{f_name}",
                         class: "form-control",

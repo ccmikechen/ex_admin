@@ -65,7 +65,8 @@ defmodule ExAdmin.Show do
         import ExAdmin.Utils
         import ExAdmin.ViewHelpers
         _ = var!(resource)
-        _ = unquote(resource) # allow others downstream to not have warnings of not using
+        # allow others downstream to not have warnings of not using
+        _ = unquote(resource)
 
         markup safe: true do
           unquote(contents)

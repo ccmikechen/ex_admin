@@ -151,7 +151,7 @@ defmodule TestExAdmin.RegisterTest do
                    {:<<>>, [line: 79],
                     [
                       "/admin/users/lock/",
-                      {:::, [line: 79],
+                      {:"::", [line: 79],
                        [
                          {{:., [line: 79], [Kernel, :to_string]}, [line: 79],
                           [

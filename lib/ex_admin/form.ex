@@ -1608,7 +1608,9 @@ defmodule ExAdmin.Form do
             val = Integer.to_string(x)
             {val, val}
           end)
-        _ -> value
+
+        _ ->
+          value
       end
 
     select "", [{:class, "form-control date-time"} | opts] do
@@ -1701,7 +1703,12 @@ defmodule ExAdmin.Form do
   end
 
   def escape_value(nil), do: nil
-  def escape_value(value) when is_map(value), do: value
+  def escape_value(value) when is_map(value) do
+    cond do
+      String.Chars.impl_for(value) -> value
+      true -> nil
+    end
+  end
 
   def escape_value(value) do
     to_string(Phoenix.HTML.html_escape(value) |> elem(1))
