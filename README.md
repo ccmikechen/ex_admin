@@ -33,7 +33,7 @@ mix.exs
 ```elixir
   defp deps do
      ...
-     {:ex_admin, github: "sublimecoder/ex_admin"},
+     {:ex_admin, github: "ccmikechen/ex_admin"},
      ...
   end
 ```
