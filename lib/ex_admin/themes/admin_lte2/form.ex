@@ -351,7 +351,7 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
                             id: "#{ext_name}_#{f_name}",
                             class: "form-control",
                             name: name,
-                            onchange: "showCropper(this, \"#{ext_name}_#{f_name}\", \"#{name}\", #{aspect});"
+                            onchange: "showCropper(this, &quot;#{ext_name}_#{f_name}&quot;, &quot;#{name}&quot;, #{aspect});"
                           ]
                         )
                       _ ->
