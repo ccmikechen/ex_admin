@@ -293,6 +293,7 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
             type = field[:opts][:type] || :text
             required = if field[:name] in required_list, do: true, else: false
             name = "#{base_name}[#{f_name}]"
+            aspect = field[:opts][:aspect] || 1
 
             errors =
               get_errors(errors, String.to_atom("#{field_field_name}_#{orig_inx}_#{f_name}"))
@@ -341,15 +342,29 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
                   end
 
                   div ".col-sm-10#{error}" do
-                    Xain.input(
-                      [
-                        type: type,
-                        maxlength: "255",
-                        id: "#{ext_name}_#{f_name}",
-                        class: "form-control",
-                        name: name
-                      ] ++ val
-                    )
+
+                    case type do
+                      :image ->
+                        Xain.input(
+                          [
+                            type: "file",
+                            id: "#{ext_name}_#{f_name}",
+                            class: "form-control",
+                            name: name,
+                            onchange: "showCropper(this, \"#{ext_name}_#{f_name}\", \"#{name}\", #{aspect});"
+                          ]
+                        )
+                      _ ->
+                        Xain.input(
+                          [
+                            type: type,
+                            maxlength: "255",
+                            id: "#{ext_name}_#{f_name}",
+                            class: "form-control",
+                            name: name
+                          ] ++ val
+                        )
+                    end
 
                     build_errors(errors, field[:opts][:hint])
                   end
