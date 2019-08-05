@@ -292,9 +292,11 @@ th, td, caption {
         background: #7b8389;
         color: #fff; }
       #header ul#tabs > li.has_nested > a {
+        background: url(active_admin_image_path("nested_menu_arrow.gif")) no-repeat 89% 50%;
         padding-right: 20px;
         z-index: 1050; }
       #header ul#tabs > li.has_nested.current > a {
+        background: #7b8389 url(active_admin_image_path("nested_menu_arrow_dark.gif")) no-repeat 89% 50%;
         padding-right: 20px; }
       #header ul#tabs > li:hover > a {
         background: #7b8389;
@@ -310,7 +312,7 @@ th, td, caption {
         -webkit-border-top-right-radius: 10px;
         -webkit-border-top-left-radius: 10px;
         border-bottom: 5px solid #7b8389;
-      }
+        background: #7b8389 url(active_admin_image_path("nested_menu_arrow_dark.gif")) no-repeat 89% 50%; }
       #header ul#tabs > li:hover ul {
         display: block; }
       #header ul#tabs > li ul {
