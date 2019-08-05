@@ -1365,6 +1365,19 @@ defmodule ExAdmin.Form do
     end)
   end
 
+  def build_control(:image, _resource, opts, model_name, field_name, ext_name) do
+    name = "#{model_name}[#{field_name}]"
+    aspect = opts[:aspect] || 1
+
+    Xain.input(
+      type: "file",
+      id: ext_name,
+      class: "form-control",
+      name: name,
+      onchange: "showCropper(this, &quot;#{ext_name}&quot;, &quot;#{name}&quot;, #{aspect});"
+    )
+  end
+
   def build_control(type, resource, opts, model_name, field_name, ext_name) do
     {field_type, value} =
       cond do
@@ -1703,6 +1716,7 @@ defmodule ExAdmin.Form do
   end
 
   def escape_value(nil), do: nil
+
   def escape_value(value) when is_map(value) do
     cond do
       String.Chars.impl_for(value) -> value

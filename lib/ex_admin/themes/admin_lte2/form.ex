@@ -342,18 +342,19 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
                   end
 
                   div ".col-sm-10#{error}" do
-
                     case type do
                       :image ->
                         Xain.input(
-                          [
-                            type: "file",
-                            id: "#{ext_name}_#{f_name}",
-                            class: "form-control",
-                            name: name,
-                            onchange: "showCropper(this, &quot;#{ext_name}_#{f_name}&quot;, &quot;#{name}&quot;, #{aspect});"
-                          ]
+                          type: "file",
+                          id: "#{ext_name}_#{f_name}",
+                          class: "form-control",
+                          name: name,
+                          onchange:
+                            "showCropper(this, &quot;#{ext_name}_#{f_name}&quot;, &quot;#{name}&quot;, #{
+                              aspect
+                            });"
                         )
+
                       _ ->
                         Xain.input(
                           [
