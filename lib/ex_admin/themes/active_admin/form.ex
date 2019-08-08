@@ -270,6 +270,7 @@ defmodule ExAdmin.Theme.ActiveAdmin.Form do
             type = field[:opts][:type] || :text
             required = if field[:name] in required_list, do: true, else: false
             name = "#{base_name}[#{f_name}]"
+            maxlength = field[:opts][:maxlength] || "255"
 
             errors =
               get_errors(errors, String.to_atom("#{field_field_name}_#{orig_inx}_#{f_name}"))
@@ -316,7 +317,7 @@ defmodule ExAdmin.Theme.ActiveAdmin.Form do
                   Xain.input(
                     [
                       type: type,
-                      maxlength: "255",
+                      maxlength: maxlength,
                       id: "#{ext_name}_#{f_name}",
                       name: name,
                       required: true
