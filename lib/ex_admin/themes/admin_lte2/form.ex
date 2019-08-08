@@ -290,7 +290,7 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
 
           for field <- fields do
             f_name = field[:opts][:label] || field[:name]
-            type = field[:opts][:type] || :text
+            type = field[:opts][:type]
             required = if field[:name] in required_list, do: true, else: false
             name = "#{base_name}[#{f_name}]"
             aspect = field[:opts][:aspect] || 1
@@ -332,8 +332,8 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
               _ ->
                 val =
                   cond do
-                    is_nil(res) -> []
-                    true -> [value: Map.get(res, f_name, "") |> escape_value]
+                    is_nil(res) -> nil
+                    true -> Map.get(res, f_name, "") |> escape_value
                   end
 
                 div ".form-group", id: "#{ext_name}_#{f_name}_input" do
@@ -356,10 +356,26 @@ defmodule ExAdmin.Theme.AdminLte2.Form do
                             });"
                         )
 
+                      :text ->
+                        Xain.textarea(
+                          val,
+                          maxlength: maxlength,
+                          id: "#{ext_name}_#{f_name}",
+                          class: "form-control",
+                          name: name
+                        )
+
                       _ ->
+                        val =
+                          if val do
+                            [value: val]
+                          else
+                            []
+                          end
+
                         Xain.input(
                           [
-                            type: type,
+                            type: type || :text,
                             maxlength: maxlength,
                             id: "#{ext_name}_#{f_name}",
                             class: "form-control",
